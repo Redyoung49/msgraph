@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="MyHeartClient.Views.EmailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyHeartClient.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer 
+            CanContentScroll="True"> 
+            <ItemsControl Margin="20" ItemsSource="{Binding Messages,Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card
+                        Style="{StaticResource MaterialDesignOutlinedCard}" Margin="4">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                    Height="Auto" />
+                                    <RowDefinition
+                                    Height="*" />
+                                    <RowDefinition
+                                    Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:Card
+                                    Padding="0"
+                                    Margin="0,0,0,2"
+                                    Background="#03a9f4"
+                                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                    >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                                        Height="Auto" />
+                                            <RowDefinition
+                                        Height="Auto" />
+                                            <RowDefinition
+                                        Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                    Grid.Row="0"
+                                    Margin="16,5,16,0"
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Text="{Binding From.EmailAddress.Name}" />
+                                        <Separator
+                                    Grid.Row="1"
+                                    Style="{StaticResource MaterialDesignLightSeparator}" />
+                                        <TextBlock
+                                    Grid.Row="2"
+                                    Margin="16,0,16,8"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                    Text="{Binding ReceivedDateTime}" />
+                                        <StackPanel
+                                    Grid.Row="2"
+                                    Margin="16,0,16,8"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <Button
+                                Grid.Row="0"
+                                Margin="0,0,16,-20"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}">
+                                    <materialDesign:PackIcon
+                                    Kind="Email" />
+                                </Button>
+                                <StackPanel
+                                Grid.Row="1"
+                                Margin="8,24,8,0">
+                                    <TextBlock
+                                    FontWeight="Bold"
+                                    Text="{Binding Subject}">
+                                    </TextBlock>
+                                    <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{Binding BodyPreview}"
+                                    TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel
+                                Grid.Row="2"
+                                Margin="8"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                    <Button
+                                    Width="30"
+                                    Padding="2,0,2,0"
+                                    materialDesign:RippleAssist.IsCentered="True"
+                                    Style="{StaticResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon
+                                        Kind="Heart" />
+                                    </Button>
+                                    <materialDesign:PopupBox
+                                    Padding="2,0,2,0"
+                                    Style="{StaticResource MaterialDesignToolPopupBox}">
+                                        <StackPanel>
+                                            <Button
+                                            Content="Reply" />
+                                            <Button
+                                            Content="Delete" />
+                                        </StackPanel>
+                                    </materialDesign:PopupBox>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+    </Grid>
+</UserControl>

@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="MyHeartClient.Views.TodoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyHeartClient.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ItemsControl VerticalAlignment="Top"  Grid.Row="0" ItemsSource="{Binding TodoTaskListList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton 
+                            Margin="4"
+                            Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                            Content="{Binding DisplayName}"
+                            Command="{Binding  RelativeSource={RelativeSource AncestorType=ItemsControl},Path=DataContext.SelectTodoTaskListCommand}"
+                            CommandParameter="{Binding}"
+                            GroupName="Group_TodoTaskList"
+                            ></RadioButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Grid.Row="1">
+                <ListBox  ItemsSource="{Binding TodoTaskList,Mode=OneWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="5,10,5,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Kind="CircleOutline"
+                                                 Width="25"
+                                                 Height="25"
+                                                 VerticalAlignment="Center"></materialDesign:PackIcon>
+                                <TextBlock Text="{Binding Title}"
+                                   Grid.Column="1"
+                                   FontSize="28"
+                                   Margin="10"
+                               VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignNavigationListBoxItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+                <materialDesign:Card VerticalAlignment="Bottom"
+                             HorizontalAlignment="Center" 
+                             Width="400"
+                             Margin="10">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button  
+                    Width="100" 
+                    Height="50"
+                    Content="Add"
+                    Command="{Binding AddTodoCommand}"
+                    CommandParameter="{Binding ElementName=tb_todoName,Path=Text}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+
+                        </Button>
+                        <TextBox Grid.Column="1"
+                         FontSize="20"
+                         Name="tb_todoName" 
+                         materialDesign:HintAssist.Hint="todo..."
+                         VerticalContentAlignment="Center"
+                         />
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+</UserControl>
